@@ -1,6 +1,17 @@
 <?php
 session_start();
-require_once 'config/database.php';
+
+$db_host = "localhost";
+$db_user = "root";
+$db_pass = "";
+$db_name = "shoe_store";
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Check if user is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -135,7 +146,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Shoe Store</title>
+    <title>Admin Dashboard - UNIBEE</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
@@ -205,7 +216,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 250px; height: 100%;">
                     <a href="admin_dashboard.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <i class="fas fa-shoe-prints me-2"></i>
-                        <span class="fs-4">Shoe Store Admin</span>
+                        <span class="fs-4">UNIBEE Admin</span>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">

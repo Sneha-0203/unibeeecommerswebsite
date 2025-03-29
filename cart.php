@@ -1,10 +1,11 @@
+
 <?php
 // Start session
 session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -165,7 +166,7 @@ $cartIsEmpty = empty($cartData);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - Shoe Store</title>
+    <title>Shopping Cart - UNIBEE</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -201,7 +202,7 @@ $cartIsEmpty = empty($cartData);
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">Shoe Store</a>
+            <a class="navbar-brand" href="index.php">UNIBEE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -211,7 +212,7 @@ $cartIsEmpty = empty($cartData);
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="products.php">Products</a>
+                        <a class="nav-link" href="product.php">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="orders.php">My Orders</a>
@@ -259,7 +260,7 @@ $cartIsEmpty = empty($cartData);
                     <i class="fas fa-shopping-cart fa-4x mb-4 text-muted"></i>
                     <h3>Your cart is empty</h3>
                     <p class="text-muted">Looks like you haven't added any items to your cart yet.</p>
-                    <a href="products.php" class="btn btn-primary mt-3">
+                    <a href="product.php" class="btn btn-primary mt-3">
                         <i class="fas fa-shopping-bag me-2"></i> Continue Shopping
                     </a>
                 </div>
@@ -347,7 +348,7 @@ $cartIsEmpty = empty($cartData);
                             </div>
                         </div>
                         <div class="card-footer bg-transparent">
-                            <a href="products.php" class="btn btn-outline-secondary">
+                            <a href="product.php" class="btn btn-outline-secondary">
                                 <i class="fas fa-arrow-left me-2"></i> Continue Shopping
                             </a>
                         </div>
@@ -410,14 +411,14 @@ $cartIsEmpty = empty($cartData);
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Shoe Store</h5>
+                    <h5>UNIBEE</h5>
                     <p>Quality footwear for every occasion.</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="index.php" class="text-white">Home</a></li>
-                        <li><a href="products.php" class="text-white">Products</a></li>
+                        <li><a href="product.php" class="text-white">Products</a></li>
                         <li><a href="about.php" class="text-white">About Us</a></li>
                         <li><a href="contact.php" class="text-white">Contact</a></li>
                     </ul>
@@ -427,12 +428,12 @@ $cartIsEmpty = empty($cartData);
                     <address>
                         <p><i class="fas fa-map-marker-alt me-2"></i> 123 Shoe Street, Fashion City</p>
                         <p><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
-                        <p><i class="fas fa-envelope me-2"></i> info@shoestore.com</p>
+                        <p><i class="fas fa-envelope me-2"></i> info@unibee.com</p>
                     </address>
                 </div>
             </div>
             <div class="text-center mt-3">
-                <p class="mb-0">&copy; <?php echo date('Y'); ?> Shoe Store. All rights reserved.</p>
+                <p class="mb-0">&copy; <?php echo date('Y'); ?> UNIBEE. All rights reserved.</p>
             </div>
         </div>
     </footer>

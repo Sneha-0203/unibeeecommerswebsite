@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($product['name']); ?> - Shoe Store</title>
+    <title><?php echo htmlspecialchars($product['name']); ?> - </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">Shoe Store</a>
+            <a class="navbar-brand" href="index.php">UNIBEE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -397,12 +397,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                     <address>
                         <p><i class="fas fa-map-marker-alt me-2"></i> 123 Shoe Street, Fashion City</p>
                         <p><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
-                        <p><i class="fas fa-envelope me-2"></i> info@shoestore.com</p>
+                        <p><i class="fas fa-envelope me-2"></i> info@unibee.com</p>
                     </address>
                 </div>
             </div>
             <div class="text-center mt-3">
-                <p class="mb-0">&copy; <?php echo date('Y'); ?> Shoe Store. All rights reserved.</p>
+                <p class="mb-0">&copy; <?php echo date('Y'); ?> UNIBEE. All rights reserved.</p>
             </div>
         </div>
     </footer>

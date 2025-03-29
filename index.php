@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             
-        } else {
+         } else {
             $login_error = "Invalid password";
         }
     } else {
@@ -98,7 +98,7 @@ if ($products_result && $products_result->num_rows > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShoeStore - Your Ultimate Shoe Destination</title>
+    <title>UNIBEE- Your Ultimate Shoe Destination</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -881,13 +881,13 @@ if ($products_result && $products_result->num_rows > 0) {
         <div class="container">
             <div class="brand">
                 <a href="index.php">
-                    <h1>ShoeStore</h1>
+                    <h1>UNIBEE</h1>
                 </a>
             </div>
             <nav>
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="products.php">Products</a></li>
+                    <li><a href="product.php">Products</a></li>
                     <li><a href="cart.php">Cart <span id="cart-count">0</span></a></li>
                     <li class="profile-dropdown">
                         <?php if(isset($_SESSION['user_id'])): ?>
@@ -909,8 +909,7 @@ if ($products_result && $products_result->num_rows > 0) {
                                 <a href="admin_login.php"><i class="fas fa-lock"></i> Admin Login</a>
                             <?php else: ?>
                                 <a href="profile.php"><i class="fas fa-id-card"></i> My Profile</a>
-                                <a href="orders.php"><i class="fas fa-shopping-bag"></i> My Orders</a>
-                                <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                <a href="user-order_history.php"><i class="fas fa-shopping-bag"></i> My Orders</a>                                <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             <?php endif; ?>
                         </div>
                     </li>
@@ -949,7 +948,7 @@ if ($products_result && $products_result->num_rows > 0) {
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit" name="login_submit" class="btn">Login</button>
+                <button type="submit" name="5" class="btn">Login</button>
                 <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
                 <p><a href="admin_login.php">Admin Login</a></p>
             </form>
@@ -994,9 +993,9 @@ if ($products_result && $products_result->num_rows > 0) {
     <section class="banner">
         <div class="container">
             <div class="banner-content">
-                <h2>Step into Style with ShoeStore</h2>
+                <h2>Step into Style with UNIBEE</h2>
                 <p>Discover our exclusive collection of shoes for every occasion. From casual to formal, we've got you covered with the latest trends and timeless classics.</p>
-                <a href="products.php" class="btn">Shop Now</a>
+                <a href="product.php" class="btn">Shop Now</a>
             </div>
         </div>
     </section>
@@ -1033,7 +1032,7 @@ if ($products_result && $products_result->num_rows > 0) {
                 <?php endif; ?>
             </div>
             <div class="view-more">
-                <a href="products.php" class="btn">View All Products</a>
+                <a href="product.php" class="btn">View All Products</a>
             </div>
         </div>
     </section>
@@ -1047,21 +1046,21 @@ if ($products_result && $products_result->num_rows > 0) {
                     <img src="images/categories/casual.jpg" alt="Casual Shoes">
                     <div class="category-content">
                         <h3>Casual Shoes</h3>
-                        <a href="products.php?category=1" class="btn">Shop Now</a>
+                        <a href="product.php?category=1" class="btn">Shop Now</a>
                     </div>
                 </div>
                 <div class="category-card">
                     <img src="images/categories/sports.jpg" alt="Sports Shoes">
                     <div class="category-content">
                         <h3>Sports Shoes</h3>
-                        <a href="products.php?category=2" class="btn">Shop Now</a>
+                        <a href="product.php?category=2" class="btn">Shop Now</a>
                     </div>
                 </div>
                 <div class="category-card">
                     <img src="images/categories/formal.jpg" alt="Formal Shoes">
                     <div class="category-content">
                         <h3>Formal Shoes</h3>
-                        <a href="products.php?category=3" class="btn">Shop Now</a>
+                        <a href="product.php?category=3" class="btn">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -1085,7 +1084,7 @@ if ($products_result && $products_result->num_rows > 0) {
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h3>ShoeStore</h3>
+                    <h3>UNIBEE</h3>
                     <p>Your ultimate destination for stylish and comfortable footwear. We bring you the best brands and designs from around the world.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1098,7 +1097,7 @@ if ($products_result && $products_result->num_rows > 0) {
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="products.php">Products</a></li>
+                        <li><a href="product.php">Products</a></li>
                         <li><a href="about.php">About Us</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
                     </ul>
@@ -1117,12 +1116,12 @@ if ($products_result && $products_result->num_rows > 0) {
                     <ul>
                         <li><i class="fas fa-map-marker-alt"></i> 123 Shoe Street, Fashion City</li>
                         <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
-                        <li><i class="fas fa-envelope"></i> info@shoestore.com</li>
+                        <li><i class="fas fa-envelope"></i> info@unibee.com</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 ShoeStore. All Rights Reserved.</p>
+                <p>&copy; 2025 UNIBEE. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

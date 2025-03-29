@@ -100,7 +100,7 @@ $total_pages = ceil($total_products / $per_page);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products Management - Shoe Store Admin</title>
+    <title>Products Management - UNIBEE Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
@@ -195,7 +195,7 @@ $total_pages = ceil($total_products / $per_page);
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 250px; height: 100%;">
                     <a href="admin_dashboard.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <i class="fas fa-shoe-prints me-2"></i>
-                        <span class="fs-4">Shoe Store Admin</span>
+                        <span class="fs-4">UNIBEE Admin</span>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
