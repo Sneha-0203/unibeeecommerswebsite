@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Create order
             $orderStmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, shipping_address, payment_method, status, created_at) 
                                 VALUES (?, ?, ?, ?, ?, NOW())");
-            $status = ($payment_method === 'cod') ? 'pending_payment' : 'pending';
+            $status = 'pending';
             $orderStmt->bind_param("idsss", $userId, $total, $shipping_address, $payment_method, $status);
             $orderStmt->execute();
             $orderId = $conn->insert_id;

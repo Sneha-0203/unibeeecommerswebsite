@@ -13,11 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if user is logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: admin_login.php');
-    exit();
-}
+
 
 // Handle product form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
@@ -256,12 +252,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
                                 Reports
                             </a>
                         </li>
-                        <li>
-                            <a href="admin_settings.php" class="nav-link text-white">
-                                <i class="fas fa-cog me-2"></i>
-                                Settings
-                            </a>
-                        </li>
+                        
                     </ul>
                     <hr>
                     <div class="dropdown">
@@ -383,7 +374,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
                                                     <tr>
                                                         <td>#<?php echo $order['id']; ?></td>
                                                         <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
-                                                        <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
+                                                        <td>₹<?php echo number_format($order['total_amount'], 2); ?></td>
                                                         <td>
                                                             <?php 
                                                             $status_class = '';
@@ -509,7 +500,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
                                     <div class="col-md-6">
                                         <label for="base_price" class="form-label">Base Price</label>
                                         <div class="input-group">
-                                            <span class="input-group-text">$</span>
+                                            <span class="input-group-text">₹</span>
                                             <input type="number" class="form-control" id="base_price" name="base_price" step="0.01" min="0" required>
                                         </div>
                                     </div>
@@ -631,7 +622,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
                                                 </td>
                                                 <td><?php echo htmlspecialchars($product['name']); ?></td>
                                                 <td><?php echo htmlspecialchars($product['category_name']); ?></td>
-                                                <td>$<?php echo number_format($product['base_price'], 2); ?></td>
+                                                <td>₹<?php echo number_format($product['base_price'], 2); ?></td>
                                                 <td>
                                                     <?php if (count($sizes) > 0): ?>
                                                         <?php foreach ($sizes as $size): ?>
@@ -660,9 +651,7 @@ $recent_orders_result = $conn->query($recent_orders_query);
                                                         <a href="edit_product.php?id=<?php echo $product['id']; ?>" class="btn btn-primary">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="view_product.php?id=<?php echo $product['id']; ?>" class="btn btn-info">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
+                                                        
                                                         <button type="button" class="btn btn-danger delete-product" data-id="<?php echo $product['id']; ?>" data-name="<?php echo htmlspecialchars($product['name']); ?>">
                                                             <i class="fas fa-trash"></i>
                                                         </button>

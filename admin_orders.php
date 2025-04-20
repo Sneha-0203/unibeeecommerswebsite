@@ -341,14 +341,14 @@ include 'includes/header.php';
     </style>
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-0">
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 250px; height: 100%;">
                     <a href="admin_dashboard.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <i class="fas fa-shoe-prints me-2"></i>
-                        <span class="fs-4">Shoe Store Admin</span>
+                        <span class="fs-4">UNIBEE Admin</span>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
@@ -359,19 +359,19 @@ include 'includes/header.php';
                             </a>
                         </li>
                         <li>
-                            <a href="admin_products.php" class="nav-link text-white">
+                            <a href="admin_products.php" class="nav-link" aria-current="page">
                                 <i class="fas fa-shoe-prints me-2"></i>
                                 Products
                             </a>
                         </li>
                         <li>
-                            <a href="admin_categories.php" class="nav-link text-white">
+                            <a href="admin_categories.php" class="nav-link  text-white">
                                 <i class="fas fa-tags me-2"></i>
                                 Categories
                             </a>
                         </li>
                         <li>
-                            <a href="admin_orders.php" class="nav-link active" aria-current="page">
+                            <a href="admin_orders.php" class="nav-link active text-white">
                                 <i class="fas fa-shopping-cart me-2"></i>
                                 Orders
                             </a>
@@ -388,18 +388,12 @@ include 'includes/header.php';
                                 Reports
                             </a>
                         </li>
-                        <li>
-                            <a href="admin_settings.php" class="nav-link text-white">
-                                <i class="fas fa-cog me-2"></i>
-                                Settings
-                            </a>
-                        </li>
                     </ul>
                     <hr>
                     <div class="dropdown">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle me-2 fs-5"></i>
-                            <strong><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Admin'; ?></strong>
+                            <strong><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : htmlspecialchars($_SESSION['username']); ?></strong>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="admin_profile.php">Profile</a></li>
@@ -409,6 +403,7 @@ include 'includes/header.php';
                     </div>
                 </div>
             </div>
+
 
             <!-- Main Content -->
             <div class="col-md-10 content">

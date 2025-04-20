@@ -102,11 +102,12 @@ if ($products_result && $products_result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         :root {
-            --primary-color: #3a86ff;
+            --primary-color: #FF5500;
             --secondary-color: #ff6b6b;
-            --dark-color: #333;
+            --third-color: #rgb(94, 92, 92)33;
             --light-color: #f4f4f4;
             --success-color: #28a745;
             --danger-color: #dc3545;
@@ -157,40 +158,105 @@ if ($products_result && $products_result->num_rows > 0) {
             font-size: 28px;
             font-weight: 700;
         }
-        
-        nav ul {
+        nav {
+            background: linear-gradient(to right, #f12711, #f5af19);
+            padding: 15px 20px;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        nav ul {
             list-style: none;
-            gap: 25px;
-        }
-        
-        nav ul li a {
-            color: var(--dark-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        
-        nav ul li a:hover::after {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
             width: 100%;
         }
+
+        nav ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a:hover {
+            color: #ff5722;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        /* Brand styling */
+        nav ul .brand {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul .brand i {
+            margin-right: 8px;
+        }
+
+        /* Icon-specific styling */
+        nav a .fa-heart {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover .fa-heart {
+            color: #ff5722;
+        }
+
+        nav a .fa-shopping-cart {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover .fa-shopping-cart {
+            color: #ff5722;
+        }
         /* Updated Profile Dropdown Styles */
+        #cart-count {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ff5722;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* Profile dropdown styling */
         .profile-dropdown {
             position: relative;
             cursor: pointer;
@@ -199,7 +265,7 @@ if ($products_result && $products_result->num_rows > 0) {
         .profile-dropdown a.user-logged-in {
             display: flex;
             align-items: center;
-            background-color: var(--primary-color);
+            background-color: rgba(0, 0, 0, 0.1);
             color: white;
             border-radius: 20px;
             padding: 6px 12px;
@@ -207,21 +273,12 @@ if ($products_result && $products_result->num_rows > 0) {
         }
 
         .profile-dropdown a.user-logged-in:hover {
-            background-color: #2a75e6;
-            box-shadow: 0 2px 10px rgba(42, 117, 230, 0.4);
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .profile-dropdown a.user-logged-in i.fa-user-circle {
             font-size: 18px;
-            margin-right: 6px;
-        }
-
-        .profile-dropdown a:not(.user-logged-in) {
-            display: flex;
-            align-items: center;
-        }
-
-        .profile-dropdown a:not(.user-logged-in) i {
             margin-right: 6px;
         }
 
@@ -235,11 +292,16 @@ if ($products_result && $products_result->num_rows > 0) {
         }
 
         .dropdown-content {
+            position: absolute;
+            right: 0;
+            background-color: white;
             min-width: 200px;
             border-radius: 8px;
             margin-top: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
             border: 1px solid #eee;
+            display: none;
+            z-index: 1100;
             transform-origin: top center;
             transform: scaleY(0);
             opacity: 0;
@@ -255,6 +317,8 @@ if ($products_result && $products_result->num_rows > 0) {
         .dropdown-content a {
             display: flex !important;
             align-items: center;
+            padding: 12px 16px;
+            color: #333;
             font-weight: 400 !important;
             border-bottom: 1px solid #f0f0f0;
         }
@@ -263,83 +327,42 @@ if ($products_result && $products_result->num_rows > 0) {
             border-bottom: none;
         }
 
+        .dropdown-content a:hover {
+            color: #ff5722;
+        }
+
         .dropdown-content a i {
             margin-right: 8px;
             width: 18px;
             text-align: center;
+            color: #ff5722;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            nav ul .brand {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
         }
         
-        #cart-count {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--secondary-color);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 12px;
-            margin-left: 5px;
-        }
-        
-        /* Banner Styles */
-        .banner {
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('images/banner.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
-        
-        .banner-content {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .banner-content h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .banner-content p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #2a75e6;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
-        }
+      
         
         /* Enhanced Featured Products Section */
         .section-title {
             text-align: center;
             margin: 50px 0 30px;
-            font-size: 32px;
+            font-size: 50px;
             font-weight: 700;
-            color: var(--dark-color);
+            color: #ff5500;
             position: relative;
+            transform: perspective(500px) rotateX(5deg);
         }
         
         .section-title::after {
@@ -463,10 +486,15 @@ if ($products_result && $products_result->num_rows > 0) {
         }
         
         .product-actions .btn {
+            background-color: #FF5500;
+
             padding: 8px 16px;
             font-size: 14px;
         }
-        
+        .product-actions .btn:hover {
+    background-color:rgb(94, 92, 92);
+    color: white;
+}
         .add-to-cart {
             display: flex;
             align-items: center;
@@ -492,70 +520,10 @@ if ($products_result && $products_result->num_rows > 0) {
             margin: 50px 0;
         }
         
-        /* Categories Section */
-        /* Categories Section */
-        .categories {
-            padding: 50px 0;
-            background-color: #f5f5f5;
-        }
-        
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .category-card {
-            position: relative;
-            height: 300px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .category-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .category-card:hover img {
-            transform: scale(1.1);
-        }
-        
-        .category-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            padding: 20px;
-            color: white;
-            text-align: center;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .category-card:hover .category-content {
-            transform: translateY(-5px);
-        }
-        
-        .category-content h3 {
-            margin-bottom: 15px;
-            font-size: 24px;
-            font-weight: 600;
-        }
         
         /* Newsletter Section */
         .newsletter {
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, #f12711, #f5af19);
             color: white;
             padding: 60px 0;
             text-align: center;
@@ -601,86 +569,100 @@ if ($products_result && $products_result->num_rows > 0) {
             background-color: var(--secondary-color);
         }
         
-        /* Footer Styles */
+        
         footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 50px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-col h3 {
-            margin-bottom: 20px;
-            font-size: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-        
-        .footer-col ul {
-            list-style: none;
-        }
-        
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-col ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .footer-col ul li a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-        
+    background: #000; /* Black background */
+    color: #fff; /* White text */
+    padding: 20px 0;
+    font-size: 18px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.footer-col h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    position: relative;
+    padding-bottom: 8px;
+    color: #fff; /* White heading */
+    text-decoration: underline; /* Underline effect */
+    text-decoration-thickness: 3px; /* Thicker underline */
+    text-underline-offset: 5px; /* Space between text and underline */
+    text-decoration-color: #ff9800; /* Orange underline */
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+/* Hover Effect for Headings */
+.footer-col h3:hover {
+    color: #ff9800; /* Change text color to orange */
+    text-decoration-color: #fff; /* Change underline to white */
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+/* Links */
+.footer-col ul li a {
+    font-size: 18px;
+    color: #ccc; /* Light gray for contrast */
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect for Links */
+.footer-col ul li a:hover {
+    color: #ff9800; /* Bright orange on hover */
+    padding-left: 5px;
+}
+
         .social-links {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            color: white;
+            font-size: 20px;
             transition: all 0.3s ease;
         }
-        
-        .social-links a:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-3px);
+
+        .social-links a i {
+            transition: all 0.3s ease;
         }
-        
+
+        .social-links a:hover {
+            transform: scale(1.2) translateY(-5px);
+        }
+
+        .social-links a:nth-child(1) i { color: #1877F2; }
+        .social-links a:nth-child(2) i { color: #1DA1F2; }
+        .social-links a:nth-child(3) i { color: #C13584; }
+        .social-links a:nth-child(4) i { color: #E60023; }
+        .social-links a:nth-child(5) i { color: #25D366; }
+
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
         /* Modal Styles */
         .modal {
             display: none;
@@ -873,23 +855,432 @@ if ($products_result && $products_result->num_rows > 0) {
                 width: 100%;
             }
         }
+     /* Shop By Category Section */
+.featured-categories {
+    padding: 60px 0;
+    margin-left: -25%;
+}
+
+.featured-categories h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark-color);
+    position: relative;
+    margin-left: 20%;
+    
+    
+}
+
+.featured-categories h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+.featured-categories .fix{
+    display: flex;
+    gap: 13%;
+    
+}
+
+.category-card {
+    border: none !important;
+    overflow: hidden;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease !important;
+    width: 200%;
+    margin-right: 3%;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.category-icon {
+    margin: 0 auto 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    
+    
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.1);
+}
+
+.category-card h4 {
+    color: white;
+    font-weight: 200;
+    margin-bottom: 10px;
+    margin-left: 3%;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover h4 {
+    transform: translateY(-5px);
+}
+
+.category-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-left: 3%;
+    transition: opacity 0.3s ease;
+}
+
+.category-card:hover p {
+    opacity: 1;
+}
+
+.category-card .btn {
+    background-color: white;
+    color: var(--dark-color);
+    font-weight: 200;
+    padding: 5px 12px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    border: none;
+    margin-bottom: 3%;
+    margin-left: 3%;
+}
+
+.category-card:hover .btn {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(3px);
+}
+
+.category-card .btn i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .btn i {
+    transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .featured-categories {
+        padding: 40px 0;
+    }
+    
+    .category-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .category-card h4 {
+        font-size: 18px;
+    }
+    
+    .category-card p {
+        font-size: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .category-card .btn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+    
+}
+
+/* For extra small screens */
+@media (max-width: 576px) {
+    .category-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+    
+    .category-card h4 {
+        font-size: 16px;
+    }
+    
+    .category-card p {
+        display: none;
+    }
+    
+    .category-card .btn {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+}
+.preview-container {
+    padding: 0; /* Optional: reduce space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;     /* Full viewport height */
+    width: 100vw;      /* Full viewport width */
+    margin: 0;
+}
+
+        
+.hero {
+    background-color: white;
+    padding: 80px 0;
+    width: 85%;        /* Full screen width */
+    height: 85%;       /* Full screen height */
+    max-width: 100vw;    /* Remove fixed 1200px width limit */
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-radius: 0;    /* Optional: remove curve if you want edge-to-edge */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+        
+        .hero-content {
+            padding: 0 40px;
+            max-width: 55%;
+            position: relative;
+            z-index: 2;
+            line-height: 0.9;
+        }
+        
+        .hero-tag {
+            font-size: 30px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #4a4a4a;
+        }
+        .hero-tag1 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #f3f8fafd;
+             text-align:center ;
+        }
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            font-size: 180px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #000;
+            margin-top: 0;
+            margin-bottom: 5px;
+            line-height: 0.9;
+            position: relative;
+            display: inline-block;
+            transform: perspective(500px) rotateX(5deg);
+            text-shadow: 
+                0 2px 0 #ff5500,
+                0 4px 0 #ff5500,
+                0 6px 0 #ff5500,
+                0 8px 0 rgba(0,0,0,0.3);
+        }
+        
+        .hero-description {
+            font-size: 20px;
+            line-height: 1.2;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #616161;
+            max-width: 600px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .primary-btn {
+    background-color: #FF5500;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.primary-btn:hover {
+    background-color: rgb(94, 92, 92);
+    color: white; /* Ensure text remains white on hover */
+}
+
+        
+        
+        
+        /* Updated Shoe and Circle Styling */
+        .orange-circle {
+            position: absolute;
+            width: 850px;
+            height: 1000px;
+            background: radial-gradient(circle, #FFB347 0%, #FF7A00 60%, #FF5500 100%);
+            border-radius: 60%;
+            opacity: 0.9;
+            right: -130px;
+            top: 50%;
+            
+            transform: translateY(-50%);
+            z-index: 0;
+            box-shadow: 0 10px 30px rgba(255, 85, 0, 0.3);
+        }
+        
+        .shoe-container {
+            position: absolute;
+            right: -1%;
+            top: 60%;
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+        .shoe-image {
+            width: 800px;
+            height: auto;
+            transform: rotate(15deg);
+            filter: drop-shadow(5px 15px 25px rgba(0, 0, 0, 0.5));
+            position: relative;
+            z-index: 1;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            object-fit: contain;
+        }
+        
+        .shoe-container:hover .shoe-image {
+            transform: rotate(20deg) scale(1.05);
+            filter: drop-shadow(8px 20px 30px rgba(0, 0, 0, 0.6));
+        }
+        
+        @media (max-width: 1100px) {
+            .hero-content {
+                max-width: 50%;
+            }
+            
+            .shoe-image {
+                width: 400px;
+            }
+            
+            .orange-circle {
+                width: 420px;
+                height: 420px;
+                right: -80px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 280px;
+                text-align: center;
+            }
+            
+            .shoe-container {
+                position: absolute;
+                right: 0;
+                left: 0;
+                top: auto;
+                bottom: -60px;
+                transform: none;
+                margin: 0 auto;
+                text-align: center;
+            }
+            
+            .orange-circle {
+                width: 380px;
+                height: 380px;
+                right: 0;
+                left: 0;
+                margin: 0 auto;
+                bottom: -130px;
+                top: auto;
+                transform: none;
+            }
+            
+            .shoe-image {
+                width: 350px;
+                transform: rotate(0deg);
+            }
+            
+            .shoe-container:hover .shoe-image {
+                transform: rotate(5deg) scale(1.05);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-content {
+                padding: 0 20px;
+                margin-bottom: 240px;
+            }
+            
+            .shoe-image {
+                width: 280px;
+            }
+            
+            .orange-circle {
+                width: 320px;
+                height: 320px;
+                bottom: -100px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content {
+                margin-bottom: 200px;
+            }
+            
+            .shoe-image {
+                width: 220px;
+            }
+            
+            .orange-circle {
+                width: 260px;
+                height: 260px;
+                bottom: -80px;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+        }
     </style>
+    
 </head>
 <body>
     <!-- Header Section -->
     <header>
-        <div class="container">
-            <div class="brand">
-                <a href="index.php">
-                    <h1>UNIBEE</h1>
-                </a>
-            </div>
-            <nav>
+    <nav>
+        
+            
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="product.php">Products</a></li>
-                    <li><a href="cart.php">Cart <span id="cart-count">0</span></a></li>
-                    <li class="profile-dropdown">
+
+                <span class="brand"><i class="fas fa-shoe-prints"></i> UNIBEE</span>
+                <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="product.php"><i class="fas fa-tags"></i> Products</a></li>
+                <li><a href="wishlist.php"><i class="fas fa-heart"></i> Wishlist</a></li>
+                <li><a href="wishlist.php"><i class="fas fa-shopping-cart"></i> cart</a></li>
+                <li><a href="user-order_history.php"><i class="fas fa-shopping-bag"></i> My Orders</a></li>                               
+
+                <li class="profile-dropdown">
                         <?php if(isset($_SESSION['user_id'])): ?>
                             <a href="#" id="profile-btn" class="user-logged-in">
                                 <i class="fas fa-user-circle"></i> 
@@ -909,7 +1300,7 @@ if ($products_result && $products_result->num_rows > 0) {
                                 <a href="admin_login.php"><i class="fas fa-lock"></i> Admin Login</a>
                             <?php else: ?>
                                 <a href="profile.php"><i class="fas fa-id-card"></i> My Profile</a>
-                                <a href="user-order_history.php"><i class="fas fa-shopping-bag"></i> My Orders</a>                                <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                 <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             <?php endif; ?>
                         </div>
                     </li>
@@ -948,8 +1339,8 @@ if ($products_result && $products_result->num_rows > 0) {
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit" name="5" class="btn">Login</button>
-                <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
+                <button type="submit" name="login_submit" class="btn">Login</button>
+                                <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
                 <p><a href="admin_login.php">Admin Login</a></p>
             </form>
         </div>
@@ -989,16 +1380,25 @@ if ($products_result && $products_result->num_rows > 0) {
         </div>
     </div>
 
-    <!-- Banner Section -->
-    <section class="banner">
-        <div class="container">
-            <div class="banner-content">
-                <h2>Step into Style with UNIBEE</h2>
-                <p>Discover our exclusive collection of shoes for every occasion. From casual to formal, we've got you covered with the latest trends and timeless classics.</p>
-                <a href="product.php" class="btn">Shop Now</a>
+    <!-- Hero Section -->
+    <div class="preview-container">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-tag">Step into Style</div>
+                <div class="hero-tag1"> .  </div>
+                <h1 class="hero-title">UNIBEE</h1> 
+                <div class="hero-description">From comfort to confidence — your feet deserve the best.</div>
+                <div class="cta-buttons">
+                    <button class="primary-btn"><a href="product.php">Shop Now</a></button>
+                </div>
             </div>
-        </div>
-    </section>
+            <div class="orange-circle"></div>
+            <div class="shoe-container">
+                <!-- Using a placeholder image -->
+                <img src="uploads/Hero section/pngtree-dropshipping-men-hole-sole-jogging-shoes-png-image_11389148.png" target="_blank" class="shoe-image">
+            </div>
+        </section>
+    </div>
 
     <!-- Featured Products Section -->
     <section class="featured-products">
@@ -1008,13 +1408,13 @@ if ($products_result && $products_result->num_rows > 0) {
                 <?php foreach ($featured_products as $product): ?>
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-                        <span class="product-tag">New</span>
+                    <img src="<?php echo !empty($product['image']) ? 'uploads/products/' . htmlspecialchars($product['image']) : 'assets/img/product-placeholder.jpg'; ?>" 
+                    class="card-img-top product-image" alt="<?php echo htmlspecialchars($product['name']); ?>">
                     </div>
                     <div class="product-info">
                         <h3><?php echo $product['name']; ?></h3>
                         <p class="product-description"><?php echo $product['description']; ?></p>
-                        <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
+                        <span class="price">₹<?php echo number_format($product['price'], 2); ?></span>
                         <div class="product-actions">
                             <a href="product.php?id=<?php echo $product['id']; ?>" class="btn">View Details</a>
                             <button class="add-to-cart" data-id="<?php echo $product['id']; ?>">
@@ -1037,47 +1437,92 @@ if ($products_result && $products_result->num_rows > 0) {
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="container">
-            <h2 class="section-title">Shop by Category</h2>
-            <div class="category-grid">
-                <div class="category-card">
-                    <img src="images/categories/casual.jpg" alt="Casual Shoes">
-                    <div class="category-content">
-                        <h3>Casual Shoes</h3>
-                        <a href="product.php?category=1" class="btn">Shop Now</a>
-                    </div>
+    <!-- Featured Categories Section -->
+<div class="container my-5">
+    <div class="featured-categories">
+        <h2 class="text-center mb-4">Shop By Category</h2>
+        <div class="fix row g-4 mt-2">
+            <?php
+            // Get categories for the homepage links
+            $categoriesQuery = "SELECT id, name, description FROM categories ORDER BY id";
+            $categoriesResult = $conn->query($categoriesQuery);
+            
+            // Define icons for each category
+            $categoryIcons = [
+                'Men' => 'fa-male',
+                'Women' => 'fa-female',
+                'Sports' => 'fa-running',
+                'Casual' => 'fa-shoe-prints',
+                'Formal' => 'fa-briefcase'
+            ];
+            
+            // Define background colors for each category card
+            $categoryColors = [
+                'Men' => '#3498db',
+                'Women' => '#e84393',
+                'Sports' => '#2ecc71',
+                'Casual' => '#f39c12',
+                'Formal' => '#34495e'
+            ];
+            
+            while ($category = $categoriesResult->fetch_assoc()): 
+                // Get the appropriate icon or default to shoe-prints
+                $icon = isset($categoryIcons[$category['name']]) ? $categoryIcons[$category['name']] : 'fa-shoe-prints';
+                // Get the appropriate color or default to a blue shade
+                $bgColor = isset($categoryColors[$category['name']]) ? $categoryColors[$category['name']] : '#3498db';
+            ?>
+                <div class="col-lg-4 col-md-6 col-6">
+                    <a href="product.php?category=<?php echo $category['id']; ?>" class="text-decoration-none">
+                        <div class="card category-card h-100" style="border: none; overflow: hidden; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s;">
+                            <div class="card-body text-center" style="background: linear-gradient(135deg, <?php echo $bgColor; ?>, <?php echo $bgColor; ?>80);">
+                                <div class="category-icon" style="margin-bottom: 15px; background-color: rgba(255,255,255,0.2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <i class="fas <?php echo $icon; ?>" style="font-size: 2.5rem; color: white;"></i>
+                                </div>
+                                <h4 class="card-title" style="color: white; font-weight: 600;"><?php echo htmlspecialchars($category['name']); ?></h4>
+                                <p class="text-white-50 mb-3"><?php echo htmlspecialchars($category['description']); ?></p>
+                                <div class="btn btn-light rounded-pill" style="font-weight: 500;">
+                                    Shop Now <i class="fas fa-arrow-right ms-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="category-card">
-                    <img src="images/categories/sports.jpg" alt="Sports Shoes">
-                    <div class="category-content">
-                        <h3>Sports Shoes</h3>
-                        <a href="product.php?category=2" class="btn">Shop Now</a>
-                    </div>
-                </div>
-                <div class="category-card">
-                    <img src="images/categories/formal.jpg" alt="Formal Shoes">
-                    <div class="category-content">
-                        <h3>Formal Shoes</h3>
-                        <a href="product.php?category=3" class="btn">Shop Now</a>
-                    </div>
-                </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+</div>
+<!-- Newsletter Section -->
+<section class="newsletter" id="newsletter">
+    <div class="container">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Stay updated with our latest arrivals, exclusive offers, and shoe care tips.</p>
+        
+        <?php if (isset($_SESSION['newsletter_success'])): ?>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <?php 
+                    echo $_SESSION['newsletter_success']; 
+                    unset($_SESSION['newsletter_success']);
+                ?>
             </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter">
-        <div class="container">
-            <h2>Subscribe to Our Newsletter</h2>
-            <p>Stay updated with our latest arrivals, exclusive offers, and shoe care tips.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your Email Address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['newsletter_error'])): ?>
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>
+                <?php 
+                    echo $_SESSION['newsletter_error']; 
+                    unset($_SESSION['newsletter_error']);
+                ?>
+            </div>
+        <?php endif; ?>
+        
+        <form class="newsletter-form" action="newsletter_subscribe.php" method="POST">
+            <input type="email" name="email" placeholder="Your Email Address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
 
     <!-- Footer Section -->
     <footer>
@@ -1085,38 +1530,40 @@ if ($products_result && $products_result->num_rows > 0) {
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>UNIBEE</h3>
-                    <p>Your ultimate destination for stylish and comfortable footwear. We bring you the best brands and designs from around the world.</p>
+                    <p>Your ultimate destination for stylish and comfortable footwear.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="product.php">Products</a></li>
-                        <li><a href="about.php">About Us</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
+                        <li><a href="index.php"><i class="fas fa-home" style="color: #4CAF50;"></i> Home</a></li>
+                        <li><a href="product.php"><i class="fas fa-shopping-bag" style="color: #FF9800;"></i> Products</a></li>
+                        <li><a href="aboutus.php"><i class="fas fa-info-circle" style="color: #2196F3;"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope" style="color: #E91E63;"></i> Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>Customer Service</h3>
                     <ul>
-                        <li><a href="faq.php">FAQ</a></li>
-                        <li><a href="shipping.php">Shipping Policy</a></li>
-                        <li><a href="returns.php">Returns & Exchanges</a></li>
-                        <li><a href="terms.php">Terms & Conditions</a></li>
+                        <li><a href="faq.php"><i class="fas fa-question-circle" style="color: #FF5722;"></i> FAQ</a></li>
+                        <li><a href="shipping-policy.php"><i class="fas fa-shipping-fast" style="color: #FF9800;"></i> Shipping Policy</a></li>
+                        <li><a href="return-policy.php"><i class="fas fa-undo" style="color: #E91E63;"></i> Returns & Exchanges</a></li>
+                        <li><a href="terms.php"><i class="fas fa-file-contract" style="color: #9C27B0;"></i> Terms & Conditions</a></li>
+                    
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>Contact Info</h3>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Shoe Street, Fashion City</li>
-                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
-                        <li><i class="fas fa-envelope"></i> info@unibee.com</li>
+                        <li><a href="https://maps.google.com?q=123 Shoe Street, Fashion City" target="_blank"><i class="fas fa-map-marker-alt" style="color: #FFC107;"></i> 123 Shoe Street, Fashion City</a></li>
+                        <li><a href="tel:+12345678900"><i class="fas fa-phone" style="color: #4CAF50;"></i> +1 234 567 8900</a></li>
+                        <li><a href="mailto:info@unibee.com"><i class="fas fa-envelope" style="color: #2196F3;"></i> info@unibee.com</a></li>
                     </ul>
                 </div>
             </div>

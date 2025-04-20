@@ -166,6 +166,503 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+   nav {
+            background: linear-gradient(to right, #f12711, #f5af19);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+        }
+
+        nav ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a:hover {
+            color: #ff5722;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        /* Brand styling */
+        nav ul .brand {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul .brand i {
+            margin-right: 8px;
+        }
+
+        /* Icon-specific styling */
+        nav a .fa-heart {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover .fa-heart {
+            color: #ff5722;
+        }
+
+        nav a .fa-shopping-cart {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover .fa-shopping-cart {
+            color: #ff5722;
+        }
+        /* Updated Profile Dropdown Styles */
+        #cart-count {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ff5722;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* Profile dropdown styling */
+        .profile-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-dropdown a.user-logged-in {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.1);
+            color: white;
+            border-radius: 20px;
+            padding: 6px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown a.user-logged-in:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-dropdown a.user-logged-in i.fa-user-circle {
+            font-size: 18px;
+            margin-right: 6px;
+        }
+
+        .profile-dropdown i.fa-caret-down {
+            margin-left: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover i.fa-caret-down {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            border-radius: 8px;
+            margin-top: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #eee;
+            display: none;
+            z-index: 1100;
+            transform-origin: top center;
+            transform: scaleY(0);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            display: flex !important;
+            align-items: center;
+            padding: 12px 16px;
+            color: #333;
+            font-weight: 400 !important;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            color: #ff5722;
+        }
+
+        .dropdown-content a i {
+            margin-right: 8px;
+            width: 18px;
+            text-align: center;
+            color: #ff5722;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            nav ul .brand {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+        }
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    nav ul .brand {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
+
+/* Banner Styles */
+.banner {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('images/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.banner-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.banner-content h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.banner-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #ff5722;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #2a75e6;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
+}
+
+/* Enhanced Featured Products Section */
+.section-title {
+    text-align: center;
+    margin: 50px 0 30px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark-color);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Enhanced Product Card */
+/* Clean white background card for all product images */
+.product-card-white {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* Consistent styling for all shoe images */
+.shoe-product-image {
+    transition: all 0.4s ease;
+}
+
+/* Subtle hover effect that works with white background */
+.shoe-product-image:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 150, 0.15));
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+.breadcrumb-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto; /* handle overflow gracefully */
+}
+
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0;
+    white-space: nowrap; /* keeps items on one line */
+    display: flex; /* make sure items stay in row */
+    align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: #999;
+    padding: 0 8px;
+    font-size: 18px;
+}
+
+.breadcrumb a {
+    color: #FF5500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: #e84300;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #555;
+    font-weight: bold;
+}
+
+
+.product-image {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover .product-image::before {
+    opacity: 1;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.1);
+}
+
+.product-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: var(--dark-color);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover .product-info h3 {
+    color: var(--primary-color);
+}
+
+.product-description {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-actions .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.add-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    color: var(--dark-color);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: rotate(360deg);
+}
+.btn-red {
+    background-color:  #FF5500;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-red:hover {
+    background-color:rgb(94, 92, 92);
+    color: white;
+}
+
+.btn-continue {
+    background-color: #FF5500;
+    color: white;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-continue:hover {
+    background-color:rgb(94, 92, 92);
+    color: white;
+}
+
+footer {
+    background: #000; /* Black background */
+    color: #fff; /* White text */
+    padding: 20px 0;
+    font-size: 18px;
+}
         .product-image {
             height: 500px;
             object-fit: contain;
@@ -215,51 +712,262 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             width: 70px;
             text-align: center;
         }
+        /* Product image transformations and blending effects */
+.product-image {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Zoom effect on hover */
+.product-image:hover {
+    transform: scale(1.05);
+}
+
+/* Shadow effect on hover */
+.product-shadow:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Rotate effect on hover */
+.product-rotate:hover {
+    transform: rotate(2deg) scale(1.03);
+}
+
+/* Brightness adjustment on hover */
+.product-brightness:hover {
+    filter: brightness(1.1);
+}
+
+/* 3D effect on hover */
+.product-3d:hover {
+    transform: perspective(1000px) rotateY(5deg);
+}
+
+/* Blend Mode Effects for Product Images */
+.product-image-blend {
+    transition: all 0.4s ease;
+    /* Basic blend */
+    mix-blend-mode: multiply;
+    background-color: #f8f9fa; /* Light background color to blend with */
+}
+
+/* Different blend mode options */
+.blend-overlay {
+    mix-blend-mode: overlay;
+}
+
+.blend-soft-light {
+    mix-blend-mode: soft-light;
+}
+
+.blend-screen {
+    mix-blend-mode: screen;
+}
+
+.blend-multiply {
+    mix-blend-mode: multiply;
+}
+
+/* Background integration effect */
+.product-bg-blend {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+}
+
+.product-bg-blend img {
+    mix-blend-mode: multiply;
+    border-radius: 8px;
+}
+/* Special handling for transparent product images */
+.product-image-transparent {
+    transition: all 0.3s ease-in-out;
+    /* No harsh blend mode needed since image already has transparency */
+}
+
+.product-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Subtle hover effect appropriate for shoes */
+.product-image-transparent:hover {
+    transform: rotate(-8deg) scale(1.02);
+    filter: drop-shadow(0 10px 15px rgba(30, 80, 200, 0.2));
+}
+
+/* Gradient background blend */
+.gradient-blend {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.gradient-blend img {
+    mix-blend-mode: multiply;
+    transition: all 0.3s ease;
+}
+
+.gradient-blend:hover img {
+    mix-blend-mode: normal;
+}
+
+/* Thumbnail gallery styling */
+.thumbnail-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.thumbnail-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.thumbnail-image.active {
+    border-color: #dc3545; /* Match your theme color */
+}
+         
+footer {
+    background: #000; /* Black background */
+    color: #fff; /* White text */
+    padding: 20px 0;
+    font-size: 18px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.footer-col h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    position: relative;
+    padding-bottom: 8px;
+    color: #fff; /* White heading */
+    text-decoration: underline; /* Underline effect */
+    text-decoration-thickness: 3px; /* Thicker underline */
+    text-underline-offset: 5px; /* Space between text and underline */
+    text-decoration-color: #ff9800; /* Orange underline */
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+/* Hover Effect for Headings */
+.footer-col h3:hover {
+    color: #ff9800; /* Change text color to orange */
+    text-decoration-color: #fff; /* Change underline to white */
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+/* Links */
+.footer-col ul li a {
+    font-size: 18px;
+    color: #ccc; /* Light gray for contrast */
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect for Links */
+.footer-col ul li a:hover {
+    color: #ff9800; /* Bright orange on hover */
+    padding-left: 5px;
+}
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a i {
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2) translateY(-5px);
+        }
+
+        .social-links a:nth-child(1) i { color: #1877F2; }
+        .social-links a:nth-child(2) i { color: #1DA1F2; }
+        .social-links a:nth-child(3) i { color: #C13584; }
+        .social-links a:nth-child(4) i { color: #E60023; }
+        .social-links a:nth-child(5) i { color: #25D366; }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">UNIBEE</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="products.php">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="orderHistory.php">My Orders</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <a href="cart.php" class="btn btn-outline-light me-3 position-relative">
-                        <i class="fas fa-shopping-cart"></i> Cart
-                        <?php if ($cartCount > 0): ?>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            <?php echo $cartCount; ?>
-                        </span>
-                        <?php endif; ?>
+    <!--   <!-- Navigation -->
+     <nav>
+        
+            
+        <ul>
+
+        <span class="brand"><i class="fas fa-shoe-prints"></i> UNIBEE</span>
+        <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="product.php"><i class="fas fa-tags"></i> Products</a></li>
+        <li><a href="wishlist.php"><i class="fas fa-heart"></i> Wishlist</a></li>
+        <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count">0</span></a></li>
+        <a href="user-order_history.php"><i class="fas fa-shopping-bag"></i> My Orders</a>                               
+
+        <li class="profile-dropdown">
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <a href="#" id="profile-btn" class="user-logged-in">
+                        <i class="fas fa-user-circle"></i> 
+                        <?php echo $_SESSION['user_name']; ?> 
+                        <i class="fas fa-caret-down"></i>
                     </a>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($user['name']); ?>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
-                            <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                        </ul>
-                    </div>
+                <?php else: ?>
+                    <a href="#" id="profile-btn">
+                        <i class="fas fa-user"></i> Profile 
+                        <i class="fas fa-caret-down"></i>
+                    </a>
+                <?php endif; ?>
+                <div class="dropdown-content">
+                    <?php if(!isset($_SESSION['user_id'])): ?>
+                        <a href="#" id="login-dropdown-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        <a href="#" id="signup-dropdown-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
+                        <a href="admin_login.php"><i class="fas fa-lock"></i> Admin Login</a>
+                    <?php else: ?>
+                        <a href="profile.php"><i class="fas fa-id-card"></i> My Profile</a>
+                         <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <?php endif; ?>
                 </div>
-            </div>
-        </div>
+            </li>
+        </ul>
     </nav>
 
     <!-- Main Content -->
@@ -270,14 +978,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
-        
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="products.php">Products</a></li>
-                <li class="breadcrumb-item"><a href="products.php?category=<?php echo $product['category_id']; ?>"><?php echo htmlspecialchars($product['category_name']); ?></a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?php echo htmlspecialchars($product['name']); ?></li>
-            </ol>
-        </nav>
+        <div class="breadcrumb-wrapper">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="product.php">Products</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="product.php?category=<?php echo $product['category_id']; ?>">
+                    <?php echo htmlspecialchars($product['category_name']); ?>
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <?php echo htmlspecialchars($product['name']); ?>
+            </li>
+        </ol>
+    </nav>
+</div>
+
         
         <div class="row g-4">
             <div class="col-md-6">
@@ -293,7 +1011,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                         <span class="badge bg-secondary mb-3"><?php echo htmlspecialchars($product['category_name']); ?></span>
                         
                         <div class="my-3">
-                            <h3 class="text-success">$<?php echo number_format($product['base_price'], 2); ?></h3>
+                            <h3 class="text-success">₹<?php echo number_format($product['base_price'], 2); ?></h3>
                         </div>
                         
                         <div class="mb-4">
@@ -320,7 +1038,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                                                 <label for="size-<?php echo $size['id']; ?>" class="size-label">
                                                     <?php echo htmlspecialchars($size['size']); ?>
                                                     <?php if ($size['price_adjustment'] > 0): ?>
-                                                        <div class="small">+$<?php echo number_format($size['price_adjustment'], 2); ?></div>
+                                                        <div class="small">+₹<?php echo number_format($size['price_adjustment'], 2); ?></div>
                                                     <?php endif; ?>
                                                     <div class="small text-muted">
                                                         <?php echo $size['stock'] > 0 ? $size['stock'] . ' left' : 'Out of stock'; ?>
@@ -347,24 +1065,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                                 </div>
                                 
                                 <div class="mb-4">
-                                    <h4 id="total-price">Total: $<?php echo number_format($product['base_price'], 2); ?></h4>
+                                    <h4 id="total-price">Total: ₹<?php echo number_format($product['base_price'], 2); ?></h4>
                                 </div>
                                 
                                 <div class="d-grid gap-2">
-                                    <button type="submit" name="add_to_cart" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
-                                    </button>
-                                    <a href="products.php" class="btn btn-outline-secondary">
-                                        <i class="fas fa-arrow-left me-2"></i> Continue Shopping
-                                    </a>
-                                </div>
+    <button type="submit" name="add_to_cart" class="btn btn-red btn-lg">
+        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+    </button>
+    <a href="product.php" class="btn btn-continue btn-lg">
+        <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+    </a>
+</div>
+<div class="col-md-6">
+    <div class="card product-card-white">
+        <img src="<?php echo !empty($product['image']) ? 'uploads/products/' . htmlspecialchars($product['image']) : 'assets/img/product-placeholder.jpg'; ?>" 
+             class="card-img-top shoe-product-image" 
+             alt="<?php echo htmlspecialchars($product['name']); ?>">
+    </div>
+</div>
                             </form>
                         <?php else: ?>
                             <div class="alert alert-warning">
                                 <i class="fas fa-exclamation-circle me-2"></i> This product is currently out of stock.
                             </div>
                             <div class="d-grid">
-                                <a href="products.php" class="btn btn-outline-secondary">
+                                <a href="product.php" class="btn btn-outline-secondary">
                                     <i class="fas fa-arrow-left me-2"></i> Continue Shopping
                                 </a>
                             </div>
@@ -374,41 +1099,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+     <!-- Footer Section -->
+     <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Shoe Store</h5>
-                    <p>Quality footwear for every occasion.</p>
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>UNIBEE</h3>
+                    <p>Your ultimate destination for stylish and comfortable footwear.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.php" class="text-white">Home</a></li>
-                        <li><a href="products.php" class="text-white">Products</a></li>
-                        <li><a href="about.php" class="text-white">About Us</a></li>
-                        <li><a href="contact.php" class="text-white">Contact</a></li>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.php"><i class="fas fa-home" style="color: #4CAF50;"></i> Home</a></li>
+                        <li><a href="product.php"><i class="fas fa-shopping-bag" style="color: #FF9800;"></i> Products</a></li>
+                        <li><a href="aboutus.php"><i class="fas fa-info-circle" style="color: #2196F3;"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope" style="color: #E91E63;"></i> Contact Us</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <address>
-                        <p><i class="fas fa-map-marker-alt me-2"></i> 123 Shoe Street, Fashion City</p>
-                        <p><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
-                        <p><i class="fas fa-envelope me-2"></i> info@unibee.com</p>
-                    </address>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="faq.php"><i class="fas fa-question-circle" style="color: #FF5722;"></i> FAQ</a></li>
+                        <li><a href="shipping-policy.php"><i class="fas fa-shipping-fast" style="color: #FF9800;"></i> Shipping Policy</a></li>
+                        <li><a href="return-policy.php"><i class="fas fa-undo" style="color: #E91E63;"></i> Returns & Exchanges</a></li>
+                        <li><a href="terms.php"><i class="fas fa-file-contract" style="color: #9C27B0;"></i> Terms & Conditions</a></li>
+                    
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="https://maps.google.com?q=123 Shoe Street, Fashion City" target="_blank"><i class="fas fa-map-marker-alt" style="color: #FFC107;"></i> 123 Shoe Street, Fashion City</a></li>
+                        <li><a href="tel:+12345678900"><i class="fas fa-phone" style="color: #4CAF50;"></i> +1 234 567 8900</a></li>
+                        <li><a href="mailto:info@unibee.com"><i class="fas fa-envelope" style="color: #2196F3;"></i> info@unibee.com</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="text-center mt-3">
-                <p class="mb-0">&copy; <?php echo date('Y'); ?> UNIBEE. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 UNIBEE. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Combined JavaScript for product image effects
+document.addEventListener('DOMContentLoaded', function() {
+    // Simple image gallery functionality
+    const thumbnails = document.querySelectorAll('.thumbnail-image');
+    if (thumbnails.length > 0) {
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                const newSrc = this.getAttribute('src');
+                const mainImage = document.querySelector('.main-product-image');
+                if (mainImage) {
+                    mainImage.setAttribute('src', newSrc);
+                    
+                    // Update active state
+                    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+    }
+    
+    // Apply different blend modes based on image characteristics
+    const productImages = document.querySelectorAll('.product-image');
+    productImages.forEach(img => {
+        img.addEventListener('load', function() {
+            // For demonstration - in production you might use a canvas to analyze image brightness
+            // This simplified approach uses image src to determine if it's likely a white background
+            if (img.src.includes('white') || img.src.includes('light')) {
+                img.classList.add('blend-soft-light');
+            } else {
+                img.classList.add('blend-multiply');
+            }
+        });
+        
+        // If image is already loaded when script runs
+        if (img.complete) {
+            if (img.src.includes('white') || img.src.includes('light')) {
+                img.classList.add('blend-soft-light');
+            } else {
+                img.classList.add('blend-multiply');
+            }
+        }
+    });
+});
         document.addEventListener('DOMContentLoaded', function() {
             // Elements
             const sizeRadios = document.querySelectorAll('.size-radio');

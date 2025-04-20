@@ -235,12 +235,7 @@ $total_pages = ceil($total_products / $per_page);
                                 Reports
                             </a>
                         </li>
-                        <li>
-                            <a href="admin_settings.php" class="nav-link text-white">
-                                <i class="fas fa-cog me-2"></i>
-                                Settings
-                            </a>
-                        </li>
+                        
                     </ul>
                     <hr>
                     <div class="dropdown">
@@ -351,7 +346,7 @@ $total_pages = ceil($total_products / $per_page);
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="fw-bold">$<?php echo number_format($product['base_price'], 2); ?></span>
+                                                    <span class="fw-bold">₹<?php echo number_format($product['base_price'], 2); ?></span>
                                                     </td>
                                                 <td>
                                                     <?php
@@ -397,9 +392,7 @@ $total_pages = ceil($total_products / $per_page);
                                                         <a href="edit_product.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary" title="Edit">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="view_product.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-info" title="View">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
+                                                        
                                                         <a href="delete_product.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-danger" 
                                                            onclick="return confirm('Are you sure you want to delete this product?')" title="Delete">
                                                             <i class="fas fa-trash"></i>

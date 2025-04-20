@@ -141,7 +141,7 @@ $recent_registrations_result = $conn->query($recent_registrations_query);
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 250px; height: 100%;">
                     <a href="admin_dashboard.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <i class="fas fa-shoe-prints me-2"></i>
-                        <span class="fs-4">Shoe Store Admin</span>
+                        <span class="fs-4">UNIBEE Admin</span>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
@@ -179,12 +179,6 @@ $recent_registrations_result = $conn->query($recent_registrations_query);
                             <a href="admin_reports.php" class="nav-link text-white">
                                 <i class="fas fa-chart-bar me-2"></i>
                                 Reports
-                            </a>
-                        </li>
-                        <li>
-                            <a href="admin_settings.php" class="nav-link text-white">
-                                <i class="fas fa-cog me-2"></i>
-                                Settings
                             </a>
                         </li>
                     </ul>
